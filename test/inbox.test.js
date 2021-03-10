@@ -3,29 +3,16 @@ const ganache = require('ganache-cli')
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
+beforeEach(() => {
+    //1. Get a list of all accounts
+    web3.eth.getAccounts()
+        .then(fetchedAccounts => {
+            console.log(fetchedAccounts);
+        })
 
-class Car {
-    park() {
-        return 'stopped';
-    }
-
-    drive() {
-        return 'vroom'
-    }
-}
-
-let car;
-
-beforeEach(() => {// This runs beforeEach it() inside describe()
-    car = new Car();
+    //2. Use one to deploy the contract
 })
-describe('Car Class', () => {
-    it('park()', () => {
-        assert.strictEqual(car.park(), 'stopped')
-    })
-    it('drive()', () => {
-        assert.strictEqual(car.drive(), 'vroom');
-    })
-});
 
-//npm run test will execute these. Remember to add "mocha" for test: inside package.json
+describe('Inbox Contract', () => {
+    it('logs a list of fetched accounts', () => { })
+})
