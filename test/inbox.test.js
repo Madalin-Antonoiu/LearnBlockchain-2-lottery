@@ -22,9 +22,23 @@ describe('Inbox', () => {
         assert.ok(inbox.options.address);
     })
 
+    // Read-only method
     it('has a default message', async () => {
         //string public message; from Inbox.sol is providing this message() function
         const message = await inbox.methods.message().call();
         assert.strictEqual(message, INITIAL_STRING);
     })
+
+    // Modify method
+    it('can change the message', async () => {
+        const value = 'Adios, amigos!';
+
+        await inbox.methods.setMessage(value).send({ from: accounts[0] });
+        // have this person pay for sending the change into the network
+        // it does return like a 'receipt' if i do const receipt = await...
+
+        const message = await inbox.methods.message().call();
+        assert.strictEqual(message, value)// if it was correctly set, then it should be ===
+    })
+
 })
