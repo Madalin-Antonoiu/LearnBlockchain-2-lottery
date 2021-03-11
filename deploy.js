@@ -7,7 +7,6 @@ const Web3 = require('web3');
 const { interface, bytecode } = require('./compile');
 
 // Variables
-const INITIAL_MESSAGE = "Hi there!";
 let SPENDER;
 const provider = new HDWalletProvider(
     process.env.WALLET_SEEDPHRASE, // Any Eth account mnemonic can be used, MetaMask for this example
@@ -26,7 +25,7 @@ const deploy = async () => {
     console.log('Attempting to deploy from account', SPENDER);
 
     const result = await new web3.eth.Contract(JSON.parse(interface))
-        .deploy({ data: bytecode, arguments: [INITIAL_MESSAGE] }) //careful to include [] for arguments
+        .deploy({ data: bytecode }) //careful to include [] for arguments
         .send({ gas: '1000000', from: SPENDER })
 
     console.log('Contract deployed to', `https://rinkeby.etherscan.io/address/${result.options.address}`);
