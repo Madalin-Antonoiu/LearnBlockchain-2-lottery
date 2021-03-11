@@ -55,6 +55,21 @@ describe('Lottery Contract', () => {
         assert.strictEqual(accounts[2], players[2]);
         assert.strictEqual(3, players.length); // the value that it should be, the value that it is
     })
+    it('requires a minimum ammount of ether to enter', async () => {
+
+        try {
+
+            await lottery.methods.enter().send({
+                from: accounts[0],
+                value: web3.utils.toWei('0.001', 'ether')
+            })
+
+            assert(false); // fail the test if no error is thrown
+
+        } catch (err) {
+            assert(err); // it is ok if errors, cannot send with that value
+        }
+    })
 
 })
 
